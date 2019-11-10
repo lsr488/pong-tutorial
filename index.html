@@ -91,6 +91,11 @@
 							dy = -dy;
 							b.status = 0;
 							score++;
+							if(score === brickRowCount*brickColumnCount) {
+								alert("YOU WIN, CONGRATULATIONS!");
+								document.location.reload();
+								clearInterval(interval); // needed for Chrome
+							}
 						}						
 					}
 				}
@@ -98,7 +103,7 @@
 		}
 
 		function changeBallColor() {
-			if(ballColorCount > ballColorOptions.length) {
+			if(ballColorCount > ballColorOptions.length-1) {
 				ballColorCount = 0;
 				ballColor = ballColorOptions[ballColorCount];
 			}
@@ -158,11 +163,16 @@
 			x += dx;
 			y += dy;
 
+			// horizontal collision
+			if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+				dx = -dx;
+			}
+
 			// vertical collission
 			if(y + dy < ballRadius) {
 				dy = -dy;
 			}
-				// ball and paddle collision
+			// ball and paddle collision
 			else if(y + dy > canvas.height-ballRadius) {
 				if(x > paddleX && x < paddleX + paddleWidth) {
 					dy =-dy;
@@ -174,11 +184,6 @@
 					document.location.reload();
 					clearInterval(interval); // needed for Chrome to end game
 				}
-			}
-
-			// horizontal collision
-			if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
-				dx = -dx;
 			}
 
 			// paddle movement
