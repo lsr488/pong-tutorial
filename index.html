@@ -81,11 +81,17 @@
 			if(y + dy < ballRadius) {
 				dy = -dy;
 			}
-				// bottom wall triggers game over
+				// ball and paddle collision
 			else if(y + dy > canvas.height-ballRadius) {
-				alert("GAME OVER");
-				document.location.reload();
-				cleanInterval(interval); // needed for Chrome to end game
+				if(x > paddleX && x < paddleX + paddleWidth) {
+					dy =-dy;
+				}
+					// bottom wall triggers game over
+				else {
+					alert("GAME OVER");
+					document.location.reload();
+					clearInterval(interval); // needed for Chrome to end game
+				}
 			}
 
 			// horizontal collision
