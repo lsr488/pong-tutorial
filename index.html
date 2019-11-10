@@ -174,8 +174,6 @@
 			drawLives();
 			drawBricks();
 			collisionDetection();
-			x += dx;
-			y += dy;
 
 			// horizontal collision
 			if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
@@ -210,18 +208,15 @@
 			}
 
 			// paddle movement
-			if(rightPressed) {
+			if(rightPressed && paddleX < canvas.width-paddleWidth) {
 				paddleX += 7;
-				if(paddleX + paddleWidth > canvas.width) {
-					paddleX = canvas.width - paddleWidth;
-				}
 			}
-			else if(leftPressed) {
+			else if(leftPressed && paddleX > 0) {
 				paddleX -= 7;
-				if(paddleX < 0) {
-					paddleX = 0;
-				}
 			}
+
+			x += dx;
+			y += dy;			
 			requestAnimationFrame(draw);
 		}
 
