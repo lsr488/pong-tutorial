@@ -53,7 +53,7 @@
 				leftPressed = false;
 			}
 		}
-		
+
 		function drawBall() {
 			ctx.beginPath();
 			ctx.arc(x, y, ballRadius, 0, Math.PI*2);
@@ -78,8 +78,14 @@
 			y += dy;
 
 			// vertical collission
-			if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
+			if(y + dy < ballRadius) {
 				dy = -dy;
+			}
+				// bottom wall triggers game over
+			else if(y + dy > canvas.height-ballRadius) {
+				alert("GAME OVER");
+				document.location.reload();
+				cleanInterval(interval); // needed for Chrome to end game
 			}
 
 			// horizontal collision
@@ -103,7 +109,7 @@
 		}
 
 		// refreshes canvas every 10 milliseconds
-		setInterval(draw, 10);
+		const interval = setInterval(draw, 10);
 	</script>
 
 </body>
